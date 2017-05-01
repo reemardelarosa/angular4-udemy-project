@@ -10,8 +10,4 @@ import { NavigationService } from '../shared/navigation.service';
 
 export class HeaderComponent {
   constructor(public navigationService: NavigationService) {}
-
-  onSelect(link: string) {
-    this.navigationService.selectFeature(link);
-  }
 }
