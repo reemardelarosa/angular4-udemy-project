@@ -11,7 +11,6 @@ export class RecipeService {
 
     private recipes: Recipe[] = [
       new Recipe(
-        1,
         'A Test Description 1',
         'This is a Test Description',
         'http://www.seriouseats.com/recipes/assets_' +
@@ -22,7 +21,6 @@ export class RecipeService {
         ]
       ),
       new Recipe(
-        2,
         'A Test Description 2',
         'This is a Test Description',
         'http://www.seriouseats.com/recipes/assets_' +
@@ -38,6 +36,14 @@ export class RecipeService {
 
     getRecipes() {
       return this.recipes.slice();
+    }
+
+    getRecipe(index: number) {
+      return this.recipes[index];
+    }
+
+    createEmptyRecipe() {
+      return new Recipe('', '', '', []);
     }
 
     addIngToSList(ingredients: Ingredient[]) {

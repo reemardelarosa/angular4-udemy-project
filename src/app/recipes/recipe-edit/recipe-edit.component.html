@@ -1,0 +1,10 @@
+<h3 *ngIf="!editMode">Create new Recipe</h3>
+<h3 *ngIf="editMode">Edit the Recipe</h3>
+<form>
+  <label for="name">Name</label>
+  <input type="text" name="name" [(ngModel)]="recipe.name" class="input">
+
+  <label for="name">Description</label>
+  <input type="text" name="name" [(ngModel)]="recipe.name" class="input">
+  <button class="btn btn-primary" (click)="onSubmitRecipe()">{{buttonText}}</button>
+</form>

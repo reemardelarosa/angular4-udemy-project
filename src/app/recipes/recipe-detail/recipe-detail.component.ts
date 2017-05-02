@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
 
 import { ShoppingListService } from '../../shopping-list/shopping-list.service';
-import { RecipeService } from  '../recipe.service';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,33 +13,32 @@ import { RecipeService } from  '../recipe.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  @Input() recipe: Recipe;
+  recipe: Recipe;
+  id: number;
 
   constructor(
-      private slService: ShoppingListService,
-      private rService: RecipeService,
-      private route: ActivatedRoute
+    private slService: ShoppingListService,
+    private rService: RecipeService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    const id = +this.route.snapshot.params['id'];
-    this.recipe = this.rService.getRecipes()[id]
     this.route.params
       .subscribe(
-        (params) => {
-            this.recipe = this.rService.getRecipes()[+params['id']]
+        (params: Params) => {
+          this.id = +params['id'];
+          this.recipe = this.rService.getRecipe(this.id);
         }
     );
-
   }
 
   onAddToShoppingList() {
-    // let sService = this.slService;
-    // ingredients.forEach(function (ingredient) {
-    //   sService.addIngredient(ingredient);
-    // });
     this.slService.addIngredients(this.recipe.ingredients);
-    // this.recipeService.addIngToSList(this.recipe.ingredients);
   }
 
+  onEditRecipe() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+//    this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
+  }
 }
